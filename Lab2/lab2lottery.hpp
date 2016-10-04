@@ -34,7 +34,7 @@ Store makeStore();
 Customer makeCustomer();
 void getWinners(int winners[]);
 void findWinners(Owner *owner, int *ls);
-int checkwin(int *nums, int *winners);
+int checkWin(int *nums, int *winners);
 
 
 #endif /* LAB2LOTTERY_HPP_ */
