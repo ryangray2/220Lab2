@@ -119,6 +119,72 @@ int checkWin(int *nums, int *winners) {
 }
 
 void findWinners(Owner *owner, int *ls) {
-
+	cout << "Total lottery tickets sold: " << owner->totalSold << endl;
+	cout << "Winning numbers: ";
+	for (int h = 0; h < 3; h++) {
+		cout << ls[h];
+	}
+	cout << endl;
+	int totalWins = 0;
+	int total1Wins = 0;
+	int total2Wins = 0;
+	int total3Wins = 0;
+	for (int i = 0; i < owner->numStores; i++) {
+		Store s = owner->stores[i];
+		int storeWins = 0;
+		int store1Wins = 0;
+		int store2Wins = 0;
+		int store3Wins = 0;
+		cout << "store: " << s.storeID;
+		for (int j = 0; j < s.numCust; j++) {
+			Customer c = s.custList[j];
+			int tickets = c.lotterynums;
+			cout << "/t customer: " << c.custID << endl;
+			for (int k = 0; k < c.tix; k++) {
+				int thisTicket[];
+				thisTicket[0] = tickets[k][0];
+				thisTicket[1] = tickets[k][1];
+				thisTicket[2] = tickets[k][2];
+				for (int l = 0; l < 3; l++) {
+					int matches = checkWin(thisTicket, ls);
+					if (matches > 0) {
+						totalWins += 1;
+						storeWins += 1;
+						cout << "/t ticket:/t";
+						for (int m = 0; m < 3; m++) {
+							cout << thisTicket[m];
+						}
+						cout << " matched   ";
+						if (matches == 1) {
+							total1Wins += 1;
+							store1Wins +=1;
+							cout << "1" << endl;
+						} else if (matches == 2) {
+							total2Wins += 1;
+							store2Wins += 1;
+							cout << "2" << endl;
+						} else if (matches == 3) {
+							total3Wins += 1;
+							store3Wins += 1;
+							cout << "3" << endl;
+						}
+					}
+				}
+			}
+		}
+		cout << "/t Total count for store " << s.storeID << ": ";
+		cout << store1Wins << " ";
+		cout << store2Wins << " ";
+		cout << store3Wins << endl;
+		s.numWinners[0] = store1Wins;
+		s.numWinners[1] = store2Wins;
+		s.numWinners[2] = store3Wins;
+	}
+	cout << "won with 1 number: " << total1Wins << endl;
+	cout << "won with 2 numbers: " << total2Wins << endl;
+	cout << "won with 3 numbers: " << total3Wins << endl;
+	owner->totalWinners[0] = total1Wins;
+	owner->totalWinners[1] = total2Wins;
+	owner->totalWinners[2] = total3Wins;
 }
 
